@@ -7,29 +7,29 @@
 class SubtitleCue {
 private:
 	int m_id;
-	double m_startTimeSec;
-	double m_endTimeSec;
+	double m_start_time_sec;
+	double m_end_time_sec;
 	std::string m_text;
 
 public:
-	SubtitleCue(int id, double startTimeSec, double endTimeSec, std::string text)
+	SubtitleCue(int id, double start_time_sec, double end_time_sec, std::string text)
 		: m_id(id),
-		m_startTimeSec(startTimeSec),
-		m_endTimeSec(endTimeSec),
+		m_start_time_sec(start_time_sec),
+		m_end_time_sec(end_time_sec),
 		m_text(std::move(text))
 	{
-		if (m_startTimeSec < 0.0 || m_endTimeSec < m_startTimeSec) {
+		if (m_start_time_sec < 0.0 || m_end_time_sec < m_start_time_sec) {
 			throw std::invalid_argument("SubtitleCue: некорректный диапазон времени");
 		}
 	}
 
-	[[nodiscard]] int getId() const						{ return m_id; }
-	[[nodiscard]] double getStartTimeSec() const		{ return m_startTimeSec; }
-	[[nodiscard]] double getEndTimeSec() const			{ return m_endTimeSec; }
-	[[nodiscard]] const std::string& getText() const	{ return m_text; }
+	[[nodiscard]] int get_id() const						{ return m_id; }
+	[[nodiscard]] double get_start_time_sec() const			{ return m_start_time_sec; }
+	[[nodiscard]] double get_end_time_sec() const			{ return m_end_time_sec; }
+	[[nodiscard]] const std::string& get_text() const		{ return m_text; }
 
-	[[nodiscard]] bool isActiveAt(double timeSec) const 
+	[[nodiscard]] bool is_active_at(double time_sec) const 
 	{
-		return timeSec >= m_startTimeSec && timeSec <= m_endTimeSec;
+		return time_sec >= m_start_time_sec && time_sec <= m_end_time_sec;
 	}
 };

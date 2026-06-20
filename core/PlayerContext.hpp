@@ -1,28 +1,19 @@
 #pragma once
 
+//  Пришлось вынести реализацию в заголовочный файл т.к. была ошибка линковки, которую я не смог решить иначе
+
 class PlayerContext {
 private:
-	bool m_isPaused;
-	bool m_subtitlesEnabled;
-	double m_playbackSpeed;
-	int m_volume;
+	bool m_is_paused = false;
+	bool m_subtitles_enabled = true;
 
 public:
-	PlayerContext();
+	PlayerContext() = default;
 
-	[[nodiscard]] bool isPaused() const;
-	void togglePause();
+	[[nodiscard]] bool is_paused() const { return m_is_paused; }
+	[[nodiscard]] bool is_subtitles_enabled() const { return m_subtitles_enabled; }
 
-	[[nodiscard]] double getPlaybackSpeed() const;
-	void setPlaybackSpeed(double speed);
-	void increaseSpeed();
-	void decreaseSpeed();
+	void toggle_pause() { m_is_paused = !m_is_paused; }
+	void toggle_subtitles() { m_subtitles_enabled = !m_subtitles_enabled; }
 
-	[[nodiscard]] int getVolume() const;
-	void setVolume(int volume);
-	void increaseVolume();
-	void decreaseVolume();
-
-	[[nodiscard]] bool isSubtitlesEnabled() const;
-	void toggleSubtitles();
 };

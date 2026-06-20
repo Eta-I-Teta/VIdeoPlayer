@@ -3,7 +3,7 @@
 //#include <cstdio>
 
 
-inline std::string formatTime(double seconds) {
+std::string format_time(double seconds) {
 	int totalSeconds = static_cast<int>(seconds);
 	int hours = totalSeconds / 3600;
 	int minutes = (totalSeconds % 3600) / 60;

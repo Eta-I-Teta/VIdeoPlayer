@@ -3,12 +3,9 @@
 
 enum class PlayerCommand {
 	None,
-	TogglePause,
-	Stop,
-	SeekForward,
+	TogglePause,       
+	Quit,
+	SeekForward, 
 	SeekBackward,
-	SpeedUp,
-	SpeedDown,
-	ToggleSubtitles,
-	Quit
+	ToggleSubtitles
 };

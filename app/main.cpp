@@ -1,6 +1,9 @@
+#include "PlayerContext.hpp"
 #include <iostream>
-#include <opencv2/opencv.hpp>
 
 int main() {
+    //PlayerContext ctx;
+    
+    std::cout << "OK!" << std::endl;
     return 0;
 }
