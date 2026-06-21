@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-SrtSubtitleProvider::SrtSubtitleProvider(): m_is_loaded(false) {}
+SrtSubtitleProvider::SrtSubtitleProvider(): m_is_loaded(false), m_cues() {}
 
 bool SrtSubtitleProvider::parse_timecodes(
 	const std::string& line,
