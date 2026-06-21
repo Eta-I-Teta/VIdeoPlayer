@@ -26,6 +26,8 @@
     # Реализации
     SrtSubtitleProvider.hpp
     SrtSubtitleProvider.cpp
+    OpenCVVideoSource.hpp
+    OpenCVVideoSource.cpp
 )
 
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -1,6 +1,7 @@
 #include "SrtSubtitleProvider.hpp"
 #include "ParseTimestamp.hpp"
 #include "StringTrim.hpp"
+
 #include <algorithm>
 
 
