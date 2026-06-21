@@ -15,6 +15,7 @@
     # Утилиты
     FormatTime.hpp
     ParseTimestamp.hpp
+    ParseTimestamp.cpp
     StringTrim.hpp
     
     # Интерфейсы
@@ -24,10 +25,12 @@
     UserInterface.hpp
     
     # Реализации
-    SrtSubtitleProvider.hpp
     SrtSubtitleProvider.cpp
+    SrtSubtitleProvider.hpp
     OpenCVVideoSource.hpp
     OpenCVVideoSource.cpp
+    OpenCVRenderer.hpp
+    OpenCVRenderer.cpp
 )
 
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

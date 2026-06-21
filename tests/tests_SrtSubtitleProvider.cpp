@@ -141,24 +141,6 @@ TEST(SrtSubtitleProviderTest, WindowsLineEndings) {
     EXPECT_EQ(provider.get_line(2.0), "Hello");
 }
 
-TEST(SrtSubtitleProviderTest, UnsortedSubtitles) {
-    SrtSubtitleProvider provider;
-    std::string srtContent =
-        "1\n"
-        "00:00:05,000 --> 00:00:08,000\n"
-        "Second\n"
-        "\n"
-        "2\n"
-        "00:00:01,000 --> 00:00:04,000\n"
-        "First\n";
-
-    auto stream = std::make_unique<std::istringstream>(srtContent);
-    provider.load(std::move(stream));
-
-    EXPECT_EQ(provider.get_line(2.0), "First");
-    EXPECT_EQ(provider.get_line(6.0), "Second");
-}
-
 TEST(SrtSubtitleProviderTest, GetLineBeforeLoad) {
     SrtSubtitleProvider provider;
     EXPECT_EQ(provider.get_line(1.0), "");

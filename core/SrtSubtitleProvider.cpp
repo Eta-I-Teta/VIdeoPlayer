@@ -5,8 +5,6 @@
 #include <algorithm>
 
 
-SrtSubtitleProvider::SrtSubtitleProvider(): m_is_loaded(false), m_cues() {}
-
 bool SrtSubtitleProvider::parse_timecodes(
 	const std::string& line,
 	double& start_time,
@@ -69,6 +67,7 @@ bool SrtSubtitleProvider::load(std::unique_ptr<std::istream> stream) {
 		// текст субтитра
 		std::string text;
 		while (std::getline(*stream, line)) {
+			trim(line);
 			if (line.empty()) {
 				break;
 			}
