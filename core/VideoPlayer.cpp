@@ -17,39 +17,34 @@ VideoPlayer::VideoPlayer(
 
 bool VideoPlayer::load_video(const std::string& filepath) {
 	if (!m_video_source) {
-		std::cerr << "Ошибка: источник видео не инициализирован" << std::endl;
+		std::cerr << "VideoPlayer::load_video: источник видео не инициализирован" << std::endl;
 		return false;
 	}
 
 	if (!m_video_source->open(filepath)) {
-		std::cerr << "Ошибка: не удалось открыть видеофайл: " << filepath << std::endl;
+		std::cerr << "VideoPlayer::load_video: не удалось открыть видеофайл: " << filepath << std::endl;
 		return false;
 	}
 
 	VideoInfo info = m_video_source->get_video_info();
-	std::cout << "Видео загружено:" << std::endl;
-	std::cout << "  Разрешение: " << info.get_width() << "x" << info.get_height() << std::endl;
-	std::cout << "  FPS: " << info.get_fps() << std::endl;
-	std::cout << "  Длительность: " << info.get_duration_sec() << " сек" << std::endl;
 
 	return true;
 }
 
 bool VideoPlayer::load_subtitles(const std::string& filepath) {
 	if (!m_subtitle_provider) {
-		std::cerr << "Ошибка: провайдер субтитров не инициализирован" << std::endl;
+		std::cerr << "VideoPlayer::load_subtitles: провайдер субтитров не инициализирован" << std::endl;
 		return false;
 	}
 
 	auto file_stream = std::make_unique<std::ifstream>(filepath);
 	if (!file_stream->is_open()) {
-		std::cerr << "Предупреждение: не удалось открыть файл субтитров: " << filepath << std::endl;
-		std::cerr << "Воспроизведение продолжится без субтитров" << std::endl;
+		std::cerr << "VideoPlayer::load_subtitles: не удалось открыть файл субтитров: " << filepath << std::endl;
 		return false;
 	}
 
 	if (!m_subtitle_provider->load(std::move(file_stream))) {
-		std::cerr << "Предупреждение: не удалось загрузить субтитры" << std::endl;
+		std::cerr << "VideoPlayer::load_subtitles: не удалось загрузить субтитры" << std::endl;
 		return false;
 	}
 
@@ -59,17 +54,9 @@ bool VideoPlayer::load_subtitles(const std::string& filepath) {
 
 void VideoPlayer::run() {
 	if (!m_video_source || !m_video_source->is_opened()) {
-		std::cerr << "Ошибка: видео не загружено" << std::endl;
+		std::cerr << "VideoPlayer::run: видео не загружено" << std::endl;
 		return;
 	}
-
-	std::cout << "\n=== Управление ===" << std::endl;
-	std::cout << "Пробел - Пауза/Воспроизведение" << std::endl;
-	std::cout << "Стрелка вправо - Перемотка вперед на " << m_seek_interval_sec << " сек" << std::endl;
-	std::cout << "Стрелка влево - Перемотка назад на " << m_seek_interval_sec << " сек" << std::endl;
-	std::cout << "S - Вкл/выкл субтитры" << std::endl;
-	std::cout << "Q или Esc - Выход" << std::endl;
-	std::cout << "==================\n" << std::endl;
 
 	while (should_continue()) {
 		if (m_context.is_paused()) {
@@ -168,12 +155,10 @@ void VideoPlayer::process_frame() {
 }
 
 bool VideoPlayer::should_continue() const {
-	// Проверяем, закрыто ли окно рендерера
 	if (m_renderer && m_renderer->is_window_closed()) {
 		return false;
 	}
 
-	// Проверяем, открыто ли видео
 	if (!m_video_source || !m_video_source->is_opened()) {
 		return false;
 	}
