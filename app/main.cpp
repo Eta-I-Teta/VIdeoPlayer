@@ -1,10 +1,14 @@
 #include "OpenCVRenderer.hpp"
 #include "PlayerContext.hpp"
+
+#include "OpenCVVideoSource.hpp"
+
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 
 #include <iostream>
 #include <locale>
+
 
 int main() {
 
@@ -19,26 +23,38 @@ int main() {
 	}
 	std::cout << "Окно открыто" << std::endl;
 
-	// тестовый кадр (синий прямоугольник)
-	cv::Mat frame(500, 700, CV_8UC3, cv::Scalar(255, 0, 0));
+	// тестовый кадр
+	OpenCVVideoSource vsource;
+	vsource.open("C:/Users/User/Desktop/other/NSU/projects/cpp/VIdeoPlayer/tests/dummy_video.mp4");
+
+	cv::Mat frame = vsource.read_frame();
+
 	PlayerContext context;
 
 	std::cout << "Тест 1: Отображение кадра без субтитров..." << std::endl;
 	renderer.render(frame, "", context);
 	cv::waitKey(0);
+	vsource.seek(1);
+	frame = vsource.read_frame();
 
 	std::cout << "Тест 2: Отображение кадра с субтитрами..." << std::endl;
 	renderer.render(frame, "Hello world!", context);
 	cv::waitKey(0);
+	vsource.seek(0.1);
+	frame = vsource.read_frame();
 
 	std::cout << "Тест 3: Многострочные субтитры..." << std::endl;
 	renderer.render(frame, "line 1\nline 2\nline 3", context);
 	cv::waitKey(0);
+	vsource.seek(0.5);
+	frame = vsource.read_frame();
 
 	std::cout << "Тест 4: Отключение субтитров..." << std::endl;
 	context.toggle_subtitles();
 	renderer.render(frame, "subs", context);
 	cv::waitKey(0);
+	vsource.seek(0.1);
+	frame = vsource.read_frame();
 
 	std::cout << "Тест 5: Пустой кадр..." << std::endl;
 	cv::Mat empty_frame;
